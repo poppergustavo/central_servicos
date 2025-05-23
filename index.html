@@ -15,10 +15,23 @@
       color: white !important;
     }
     #resumoIncidente {
-      margin-top: 2rem;
+      margin-top: 1rem;
       padding: 1rem;
       background-color: #e9ecef;
       border-radius: 0.5rem;
+    }
+    .incident-layout {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+    .incident-form {
+      flex: 1;
+      min-width: 300px;
+    }
+    .incident-summary {
+      flex: 1;
+      min-width: 300px;
     }
   </style>
 </head>
@@ -48,74 +61,100 @@
   <div class="container py-4">
     <div id="incidentes" class="section">
       <h2>Identificação de Incidente</h2>
-      <form class="mt-3" id="formIncidente">
-        <div class="mb-3">
-          <label class="form-label fw-bold">Ambiente reportado:</label>
-          <div class="form-check">
-            <input class="form-check-input ambiente-check" type="checkbox" id="amb1" value="Produção">
-            <label class="form-check-label" for="amb1">Produção</label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input ambiente-check" type="checkbox" id="amb2" value="Homologação/Testes">
-            <label class="form-check-label" for="amb2">Homologação/Testes</label>
-          </div>
-        </div>
+      <div class="incident-layout">
+        <div class="incident-form">
+          <form class="mt-3" id="formIncidente">
+            <div class="mb-3">
+              <label class="form-label fw-bold">Ambiente reportado:</label>
+              <div class="form-check">
+                <input class="form-check-input ambiente-check" type="checkbox" id="amb1" value="Produção">
+                <label class="form-check-label" for="amb1">Produção</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input ambiente-check" type="checkbox" id="amb2" value="Homologação/Testes">
+                <label class="form-check-label" for="amb2">Homologação/Testes</label>
+              </div>
+            </div>
 
-        <label class="form-label fw-bold">Detalhes da situação:</label>
+
+            <br><label class="form-label fw-bold">Detalhes da situação:</label>
+            <p style="color: #790000; font-size: small;">As opções abaixo são combinadas com as opções de ambiente acima. Portanto, verifique a combinação adequada com base no caso recebido.</p>
+
+            <br>
+
+            <!-- [detalhes dos checkboxes omitidos para brevidade - permanecem inalterados] -->
         <div class="form-check">
           <input class="form-check-input incidente-check" type="checkbox" id="cb1" value="Dano físico ou impacto ao paciente">
-          <label class="form-check-label" for="cb1">Houve um dano físico ou impacto reportado ao paciente.</label>
+          <label class="form-check-label" for="cb1">Dano reportado ao paciente.</label>
+          <p style="color: #6c6c6c; font-size: smaller;">* A opção "Was a patient or user harmed?" do caso está marcada, o cliente reporta um dano ao paciente ou ambos. Exemplo: Falta de medicação, complicações clínicas etc.</p>
         </div>
         <div class="form-check">
           <input class="form-check-input incidente-check" type="checkbox" id="cb2" value="Sistema inoperante">
           <label class="form-check-label" for="cb2">O sistema está inoperante.</label>
+          <p style="color: #6c6c6c; font-size: smaller;">* O sistema encontra-se inacessível, impossível de se utilizar.</p>
         </div>
         <div class="form-check">
           <input class="form-check-input incidente-check" type="checkbox" id="cb3" value="Serviço ou função específica inoperante">
           <label class="form-check-label" for="cb3">Um serviço ou função específica está inoperante.</label>
+          <p style="color: #6c6c6c; font-size: smaller;">* Situações onde não conseguimos utilizar algum serviço ou função, como indisponibilidade ou erros de acesso.</p>
         </div>
         <div class="form-check">
           <input class="form-check-input incidente-check" type="checkbox" id="cb4" value="Erros em todo o sistema ou múltiplas funções">
           <label class="form-check-label" for="cb4">O sistema apresenta erros ou falhas em ambiente de forma geral (em todo o sistema ou em mais de uma função).</label>
+          <p style="color: #6c6c6c; font-size: smaller;">* O sistema está disponível, porém apresenta erros como em login ou para todos os serviços ou funções, impossibilitando o uso.</p>
         </div>
         <div class="form-check">
           <input class="form-check-input incidente-check" type="checkbox" id="cb5" value="Erros em função específica isolada">
           <label class="form-check-label" for="cb5">O sistema apresenta erros ou falhas em locais específicos e isolados do sistema? (apenas em uma função).</label>
+          <p style="color: #6c6c6c; font-size: smaller;">* Serviços, funções ou processos específicos apresentam erros, como liberação da prescrição médica com erros que impedem a conclusão, oque seria um incidente de Alta prioridade 🟠⚠️.</p>
         </div>
         <div class="form-check">
           <input class="form-check-input incidente-check" type="checkbox" id="cb6" value="Apenas um usuário/paciente impactado">
           <label class="form-check-label" for="cb6">Apenas um usuário ou paciente está impossibilitado de usar o serviço.</label>
+          <p style="color: #6c6c6c; font-size: smaller;">* Situação ocorre somente um um usuário ou paciente, por exemplo erros de parametrização incorreta por usuário ou cadastro de sinais vitais incorretos para o paciente.</p>
         </div>
         <div class="form-check">
           <input class="form-check-input incidente-check" type="checkbox" id="cb7" value="Mais de um usuário/paciente impactado">
           <label class="form-check-label" for="cb7">Mais de um usuário ou paciente estão impossibilitados de usar o serviço.</label>
+          <p style="color: #6c6c6c; font-size: smaller;">* O sistema apresenta erros gerais para todos os usuários ou pacientes, muito parecido com erros em múltiplas funções, porém deve-se levar em conta o relato do cliente.</p>
         </div>
         <div class="form-check">
           <input class="form-check-input incidente-check" type="checkbox" id="cb8" value="Lentidão/travamento completo do sistema">
           <label class="form-check-label" for="cb8">Sistema apresenta lentidão ou travamento no sistema ou serviços por completo.</label>
+          <p style="color: #6c6c6c; font-size: smaller;">* O sistema encontra-se com lentidão geral, dificultando imensamente o uso ou execução de alguma tarefa.</p>
         </div>
         <div class="form-check">
           <input class="form-check-input incidente-check" type="checkbox" id="cb9" value="Lentidão/travamento em função específica">
           <label class="form-check-label" for="cb9">Sistema apresenta lentidão ou travamento em serviços ou locais específicos do sistema.</label>
+          <p style="color: #6c6c6c; font-size: smaller;">* Serviços ou funções apresentam lentidão, como checagem de horário para administração na ADEP, levando tempo demais para executar dificultando o registro no plano terapêutico.</p>
         </div>
         <div class="form-check">
           <input class="form-check-input incidente-check" type="checkbox" id="cb10" value="Problemas com novas configurações/processos">
           <label class="form-check-label" for="cb10">Cliente alega problemas com novas configurações e processos do sistema.</label>
+          <p style="color: #6c6c6c; font-size: smaller;">* Cliente está criando novas configurações em seu ambiente, onde pode não funcionar conforme o esperado pelo mesmo, seja por falta de conhecimento ou por não possuir tratamento. Necessário avaliar internamente se a falha é de origem do cliente (falta de conhecimento) ou da parte do sistema, oque pode ser um gap de tratamento ou de fato não funcionar conforme o cliente espera.</p>
         </div>
         <div class="form-check">
           <input class="form-check-input incidente-check" type="checkbox" id="cb11" value="Dúvidas de funcionamento ou serviços gerais">
           <label class="form-check-label" for="cb11">Cliente possui dúvidas de funcionamento ou de serviços gerais.</label>
+          <p style="color: #6c6c6c; font-size: smaller;">* Dúvidas sobre o sistema em si.</p>
         </div>
       </form>
-      <div id="resumoIncidente">
-        <h5>Resumo do Incidente</h5>
-        <ul id="listaResumo"></ul><p class="mt-3"><strong>Legenda:</strong><br>
-          🔴 Crítico<br>
-          🟠 Alto<br>
-          🟡 Médio<br>
-          🟢 Baixo<br>
-          ⚪ Sem Prioridade
-        </p>
+          </form>
+        </div>
+        <div class="incident-summary">
+          <div id="resumoIncidente">
+            <h5>Resumo do Incidente</h5>
+            <ul id="listaResumo"></ul>
+            <br><br><br><br>
+            <p class="mt-3"><strong>Legenda:</strong><br>
+              🔴 Crítico<br>
+              🟠 Alto<br>
+              🟡 Médio<br>
+              🟢 Baixo<br>
+              ⚪ Sem Prioridade
+            </p>
+          </div>
+        </div>
       </div>
     </div>
 
