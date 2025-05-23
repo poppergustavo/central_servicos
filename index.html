@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EMR - Central de Serviços</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="icon" href="https://images.seeklogo.com/logo-png/32/2/philips-logo-png_seeklogo-326304.png" type="image/png">
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+    .active-tab {
+      background-color: #0d6efd !important;
+      color: white !important;
+    }
+    #resumoIncidente {
+      margin-top: 2rem;
+      padding: 1rem;
+      background-color: #e9ecef;
+      border-radius: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid">
+      <a class="navbar-brand fw-bold" href="#">EMR - Central de Serviços</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active-tab" id="tab-incidentes" href="#" onclick="showSection('incidentes', this)">Gerenciamento de incidentes</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="tab-requisicoes" href="#" onclick="showSection('requisicoes', this)">Gerenciamento de requisição</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" href="#">+ Nova aba futura</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container py-4">
+    <div id="incidentes" class="section">
+      <h2>Identificação de Incidente</h2>
+      <form class="mt-3" id="formIncidente">
+        <div class="mb-3">
+          <label class="form-label fw-bold">Ambiente reportado:</label>
+          <div class="form-check">
+            <input class="form-check-input ambiente-check" type="checkbox" id="amb1" value="Produção">
+            <label class="form-check-label" for="amb1">Produção</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input ambiente-check" type="checkbox" id="amb2" value="Homologação/Testes">
+            <label class="form-check-label" for="amb2">Homologação/Testes</label>
+          </div>
+        </div>
+
+        <label class="form-label fw-bold">Detalhes da situação:</label>
+        <div class="form-check">
+          <input class="form-check-input incidente-check" type="checkbox" id="cb1" value="Dano físico ou impacto ao paciente">
+          <label class="form-check-label" for="cb1">Houve um dano físico ou impacto reportado ao paciente.</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input incidente-check" type="checkbox" id="cb2" value="Sistema inoperante">
+          <label class="form-check-label" for="cb2">O sistema está inoperante.</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input incidente-check" type="checkbox" id="cb3" value="Serviço ou função específica inoperante">
+          <label class="form-check-label" for="cb3">Um serviço ou função específica está inoperante.</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input incidente-check" type="checkbox" id="cb4" value="Erros em todo o sistema ou múltiplas funções">
+          <label class="form-check-label" for="cb4">O sistema apresenta erros ou falhas em ambiente de forma geral (em todo o sistema ou em mais de uma função).</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input incidente-check" type="checkbox" id="cb5" value="Erros em função específica isolada">
+          <label class="form-check-label" for="cb5">O sistema apresenta erros ou falhas em locais específicos e isolados do sistema? (apenas em uma função).</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input incidente-check" type="checkbox" id="cb6" value="Apenas um usuário/paciente impactado">
+          <label class="form-check-label" for="cb6">Apenas um usuário ou paciente está impossibilitado de usar o serviço.</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input incidente-check" type="checkbox" id="cb7" value="Mais de um usuário/paciente impactado">
+          <label class="form-check-label" for="cb7">Mais de um usuário ou paciente estão impossibilitados de usar o serviço.</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input incidente-check" type="checkbox" id="cb8" value="Lentidão/travamento completo do sistema">
+          <label class="form-check-label" for="cb8">Sistema apresenta lentidão ou travamento no sistema ou serviços por completo.</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input incidente-check" type="checkbox" id="cb9" value="Lentidão/travamento em função específica">
+          <label class="form-check-label" for="cb9">Sistema apresenta lentidão ou travamento em serviços ou locais específicos do sistema.</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input incidente-check" type="checkbox" id="cb10" value="Problemas com novas configurações/processos">
+          <label class="form-check-label" for="cb10">Cliente alega problemas com novas configurações e processos do sistema.</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input incidente-check" type="checkbox" id="cb11" value="Dúvidas de funcionamento ou serviços gerais">
+          <label class="form-check-label" for="cb11">Cliente possui dúvidas de funcionamento ou de serviços gerais.</label>
+        </div>
+      </form>
+      <div id="resumoIncidente">
+        <h5>Resumo do Incidente</h5>
+        <ul id="listaResumo"></ul><p class="mt-3"><strong>Legenda:</strong><br>
+          🔴 Crítico<br>
+          🟠 Alto<br>
+          🟡 Médio<br>
+          🟢 Baixo<br>
+          ⚪ Sem Prioridade
+        </p>
+      </div>
+    </div>
+
+    <div id="requisicoes" class="section" style="display:none">
+      <h2>Gerenciamento de Requisição</h2>
+      <p>Conteúdo referente ao gerenciamento de requisições será adicionado aqui.</p>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const combinacoes = {
+      amb1: {
+        cb1: [1, "🔴 Crítico! ⚠️ Necessário incidente, reportar à qualidade e solicitar informações complementares ao cliente."],
+        cb2: [2, "🔴 Crítico! ⚠️ Necessário incidente!"],
+        cb3: [3, "🟠 Alta prioridade! ⚠️ Necessário Incidente."],
+        cb4: [4, "🔴 Crítico! ⚠️ Necessário incidente!"],
+        cb5: [5, "🟠 Alta prioridade! ⚠️ Necessário Incidente."],
+        cb6: [6, "🟠 Alta a 🟡 média prioridade. ⚠️ Necessário Incidente."],
+        cb7: [7, "🔴 Crítico! ⚠️ Necessário incidente!"],
+        cb8: [8, "🔴 Crítico! ⚠️ Necessário incidente! + Direcionar ao grupo da função 'Performance Issues'."],
+        cb9: [9, "🟠 Alta a 🟡 média prioridade. ⚠️ Necessário incidente. + Direcionar ao grupo da função 'Performance Issues'."],
+        cb10: [10, "🟡 Média prioridade. Incidente a critério da situação."],
+        cb11: [11, "🟡 Média prioridade. Sem necessidade de incidente."]
+      },
+      amb2: {
+        cb1: [12, "❓ Incompatibilidade de ambiente de Hml/Tst com dano ao paciente. ❓"],
+        cb2: [13, "🟠 Alta a 🟡 média prioridade a depender da necessidade do cliente sobre o ambiente. ⚠️ Necessário incidente."],
+        cb3: [14, "🟡 Média prioridade. ⚠️ Necessário incidente."],
+        cb4: [15, "🟠 Alta a 🟡 média prioridade a depender da necessidade do cliente sobre o ambiente. ⚠️ Necessário incidente."],
+        cb5: [16, "🟡 Média prioridade. ⚠️ Necessário incidente."],
+        cb6: [17, "🟡 Média prioridade. ⚠️ Necessário incidente."],
+        cb7: [18, "🟠 Alta a 🟡 média prioridade a depender da necessidade do cliente sobre o ambiente. ⚠️ Necessário incidente."],
+        cb8: [19, "🟠 Alta a 🟡 média prioridade a depender da necessidade do cliente sobre o ambiente. ⚠️ Necessário incidente. + Direcionar ao grupo da função 'Performance Issues'."],
+        cb9: [20, "🟡 Média prioridade. ⚠️ Necessário incidente.  + Direcionar ao grupo da função 'Performance Issues'."],
+        cb10: [21, "🟡 Média prioridade. Incidente a critério da situação"],
+        cb11: [22, "🟡 Média prioridade. Sem necessidade de incidente"]
+      }
+    };
+
+    function showSection(id, el) {
+      document.querySelectorAll('.section').forEach(section => section.style.display = 'none');
+      document.getElementById(id).style.display = 'block';
+
+      document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active-tab'));
+      if (el) el.classList.add('active-tab');
+    }
+
+    document.querySelectorAll('.incidente-check, .ambiente-check').forEach(checkbox => {
+      checkbox.addEventListener('change', () => {
+        const lista = document.getElementById('listaResumo');
+        lista.innerHTML = '';
+
+        const ambientes = Array.from(document.querySelectorAll('.ambiente-check:checked')).map(cb => cb.id);
+        const incidentes = Array.from(document.querySelectorAll('.incidente-check:checked')).map(cb => cb.id);
+
+        if (ambientes.length === 1) {
+          const amb = ambientes[0];
+          let maiorPrioridade = null;
+
+          incidentes.forEach(inc => {
+            const combinacao = combinacoes[amb][inc];
+            if (combinacao) {
+              if (!maiorPrioridade || combinacao[0] < maiorPrioridade[0]) {
+                maiorPrioridade = combinacao;
+              }
+            }
+          });
+
+          const item = document.createElement('li');
+          item.textContent = maiorPrioridade ? maiorPrioridade[1] : 'Nenhuma diretriz aplicável encontrada para os itens selecionados.';
+          lista.appendChild(item);
+
+        } else if (ambientes.length > 1) {
+          const item = document.createElement('li');
+          item.textContent = 'Selecione apenas um ambiente para gerar o resumo.';
+          lista.appendChild(item);
+        } else {
+          const item = document.createElement('li');
+          item.textContent = 'Selecione um ambiente para visualizar o resumo.';
+          lista.appendChild(item);
+        }
+      });
+    });
+
+    window.onload = () => {
+      showSection('incidentes', document.getElementById('tab-incidentes'));
+    };
+  </script>
+</body>
+</html>
