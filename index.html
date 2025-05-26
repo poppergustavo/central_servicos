@@ -86,32 +86,32 @@
         <div class="form-check">
           <input class="form-check-input incidente-check" type="checkbox" id="cb1" value="Dano físico ou impacto ao paciente">
           <label class="form-check-label" for="cb1">Dano reportado ao paciente.</label>
-          <p style="color: #6c6c6c; font-size: smaller;">* A opção "Was a patient or user harmed?" do caso está marcada, o cliente reporta um dano ao paciente ou ambos. Exemplo: Falta de medicação, complicações clínicas etc.</p>
+          <p style="color: #6c6c6c; font-size: smaller;">* A opção "Was a patient or user harmed?" do caso está marcada, o cliente reporta um dano ao paciente ou ambos. Exemplo: Falta de medicação, complicações clínicas, impactos financeiros etc.</p>
         </div>
         <div class="form-check">
           <input class="form-check-input incidente-check" type="checkbox" id="cb2" value="Sistema inoperante">
-          <label class="form-check-label" for="cb2">O sistema está inoperante.</label>
+          <label class="form-check-label" for="cb2">O sistema está inoperante e não existe solução de contorno/paliativa.</label>
           <p style="color: #6c6c6c; font-size: smaller;">* O sistema encontra-se inacessível, impossível de se utilizar.</p>
         </div>
         <div class="form-check">
           <input class="form-check-input incidente-check" type="checkbox" id="cb3" value="Serviço ou função específica inoperante">
-          <label class="form-check-label" for="cb3">Um serviço ou função específica está inoperante.</label>
+          <label class="form-check-label" for="cb3">Um serviço ou função específica está inoperante sem solução de contorno/paliativa.</label>
           <p style="color: #6c6c6c; font-size: smaller;">* Situações onde não conseguimos utilizar algum serviço ou função, como indisponibilidade ou erros de acesso.</p>
         </div>
         <div class="form-check">
           <input class="form-check-input incidente-check" type="checkbox" id="cb4" value="Erros em todo o sistema ou múltiplas funções">
-          <label class="form-check-label" for="cb4">O sistema apresenta erros ou falhas em ambiente de forma geral (em todo o sistema ou em mais de uma função).</label>
+          <label class="form-check-label" for="cb4">O sistema apresenta erros ou falhas em ambiente de forma geral (em todo o sistema ou em mais de uma função) sem solução contorno/paliativa.</label>
           <p style="color: #6c6c6c; font-size: smaller;">* O sistema está disponível, porém apresenta erros como em login ou para todos os serviços ou funções, impossibilitando o uso.</p>
         </div>
         <div class="form-check">
           <input class="form-check-input incidente-check" type="checkbox" id="cb5" value="Erros em função específica isolada">
           <label class="form-check-label" for="cb5">O sistema apresenta erros ou falhas em locais específicos e isolados do sistema? (apenas em uma função).</label>
-          <p style="color: #6c6c6c; font-size: smaller;">* Serviços, funções ou processos específicos apresentam erros, como liberação da prescrição médica com erros que impedem a conclusão, oque seria um incidente de Alta prioridade 🟠⚠️.</p>
+          <p style="color: #6c6c6c; font-size: smaller;">* Serviços, funções ou processos específicos apresentam erros, como prescrição médica ou faturamento que podem lever a impactos diretos ao paciente.</p>
         </div>
         <div class="form-check">
           <input class="form-check-input incidente-check" type="checkbox" id="cb6" value="Apenas um usuário/paciente impactado">
           <label class="form-check-label" for="cb6">Apenas um usuário ou paciente está impossibilitado de usar o serviço.</label>
-          <p style="color: #6c6c6c; font-size: smaller;">* Situação ocorre somente um um usuário ou paciente, por exemplo erros de parametrização incorreta por usuário ou cadastro de sinais vitais incorretos para o paciente.</p>
+          <p style="color: #6c6c6c; font-size: smaller;">* Necessária análise da situação pela equipe de triagem. Onde a prioridade pode variar de acordo com a situação. Por exemplo erros de parametrização incorreta por usuário ou cadastro de sinais vitais incorretos para o paciente.</p>
         </div>
         <div class="form-check">
           <input class="form-check-input incidente-check" type="checkbox" id="cb7" value="Mais de um usuário/paciente impactado">
@@ -165,84 +165,6 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  <script>
-    const combinacoes = {
-      amb1: {
-        cb1: [1, "🔴 Crítico! ⚠️ Necessário incidente, reportar à qualidade e solicitar informações complementares ao cliente."],
-        cb2: [2, "🔴 Crítico! ⚠️ Necessário incidente!"],
-        cb3: [3, "🟠 Alta prioridade! ⚠️ Necessário Incidente."],
-        cb4: [4, "🔴 Crítico! ⚠️ Necessário incidente!"],
-        cb5: [5, "🟠 Alta prioridade! ⚠️ Necessário Incidente."],
-        cb6: [6, "🟠 Alta a 🟡 média prioridade. ⚠️ Necessário Incidente."],
-        cb7: [7, "🔴 Crítico! ⚠️ Necessário incidente!"],
-        cb8: [8, "🔴 Crítico! ⚠️ Necessário incidente! + Direcionar ao grupo da função 'Performance Issues'."],
-        cb9: [9, "🟠 Alta a 🟡 média prioridade. ⚠️ Necessário incidente. + Direcionar ao grupo da função 'Performance Issues'."],
-        cb10: [10, "🟡 Média prioridade. Incidente a critério da situação."],
-        cb11: [11, "🟡 Média prioridade. Sem necessidade de incidente."]
-      },
-      amb2: {
-        cb1: [12, "❓ Incompatibilidade de ambiente de Hml/Tst com dano ao paciente. ❓"],
-        cb2: [13, "🟠 Alta a 🟡 média prioridade a depender da necessidade do cliente sobre o ambiente. ⚠️ Necessário incidente."],
-        cb3: [14, "🟡 Média prioridade. ⚠️ Necessário incidente."],
-        cb4: [15, "🟠 Alta a 🟡 média prioridade a depender da necessidade do cliente sobre o ambiente. ⚠️ Necessário incidente."],
-        cb5: [16, "🟡 Média prioridade. ⚠️ Necessário incidente."],
-        cb6: [17, "🟡 Média prioridade. ⚠️ Necessário incidente."],
-        cb7: [18, "🟠 Alta a 🟡 média prioridade a depender da necessidade do cliente sobre o ambiente. ⚠️ Necessário incidente."],
-        cb8: [19, "🟠 Alta a 🟡 média prioridade a depender da necessidade do cliente sobre o ambiente. ⚠️ Necessário incidente. + Direcionar ao grupo da função 'Performance Issues'."],
-        cb9: [20, "🟡 Média prioridade. ⚠️ Necessário incidente.  + Direcionar ao grupo da função 'Performance Issues'."],
-        cb10: [21, "🟡 Média prioridade. Incidente a critério da situação"],
-        cb11: [22, "🟡 Média prioridade. Sem necessidade de incidente"]
-      }
-    };
-
-    function showSection(id, el) {
-      document.querySelectorAll('.section').forEach(section => section.style.display = 'none');
-      document.getElementById(id).style.display = 'block';
-
-      document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active-tab'));
-      if (el) el.classList.add('active-tab');
-    }
-
-    document.querySelectorAll('.incidente-check, .ambiente-check').forEach(checkbox => {
-      checkbox.addEventListener('change', () => {
-        const lista = document.getElementById('listaResumo');
-        lista.innerHTML = '';
-
-        const ambientes = Array.from(document.querySelectorAll('.ambiente-check:checked')).map(cb => cb.id);
-        const incidentes = Array.from(document.querySelectorAll('.incidente-check:checked')).map(cb => cb.id);
-
-        if (ambientes.length === 1) {
-          const amb = ambientes[0];
-          let maiorPrioridade = null;
-
-          incidentes.forEach(inc => {
-            const combinacao = combinacoes[amb][inc];
-            if (combinacao) {
-              if (!maiorPrioridade || combinacao[0] < maiorPrioridade[0]) {
-                maiorPrioridade = combinacao;
-              }
-            }
-          });
-
-          const item = document.createElement('li');
-          item.textContent = maiorPrioridade ? maiorPrioridade[1] : 'Nenhuma diretriz aplicável encontrada para os itens selecionados.';
-          lista.appendChild(item);
-
-        } else if (ambientes.length > 1) {
-          const item = document.createElement('li');
-          item.textContent = 'Selecione apenas um ambiente para gerar o resumo.';
-          lista.appendChild(item);
-        } else {
-          const item = document.createElement('li');
-          item.textContent = 'Selecione um ambiente para visualizar o resumo.';
-          lista.appendChild(item);
-        }
-      });
-    });
-
-    window.onload = () => {
-      showSection('incidentes', document.getElementById('tab-incidentes'));
-    };
-  </script>
+  <script src="gerPriorInc.js"></script>
 </body>
 </html>
