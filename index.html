@@ -33,6 +33,54 @@
       flex: 1;
       min-width: 300px;
     }
+    .form-check p {
+    display: none;
+  }
+
+  .custom-tooltip-question {
+    position: relative;
+    cursor: pointer;
+    font-weight: bold;
+    color: #007BFF;
+    user-select: none;
+  }
+
+  .custom-tooltip-message {
+    visibility: hidden;
+    width: 300px;
+    background-color: #333;
+    color: #fff;
+    font-size: smaller;
+    padding: 8px 12px;
+    border-radius: 6px;
+    text-align: left;
+
+    position: absolute;
+    bottom: 130%;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    z-index: 1000;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  }
+
+  .custom-tooltip-question:hover .custom-tooltip-message {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  .custom-tooltip-message::after {
+    content: "";
+    position: absolute;
+    top: 100%; /* Triângulo abaixo */
+    left: 50%;
+    margin-left: -6px;
+    border-width: 6px;
+    border-style: solid;
+    border-color: #333 transparent transparent transparent;
+  }
   </style>
 </head>
 <body>
@@ -58,10 +106,10 @@
     </div>
   </nav>
 
-  <div class="container py-4">
+  <div class="container py-4" style="display: flex;">
     <div id="incidentes" class="section">
       <h2>Identificação de Prioridade e Incidente</h2>
-      <div class="incident-layout">
+      <div class="incident-layout" style="gap: 10%;">
         <div class="incident-form">
           <form class="mt-3" id="formIncidente">
             <div class="mb-3">
@@ -77,67 +125,143 @@
             </div>
 
 
-            <br><label class="form-label fw-bold">Detalhes da situação:</label>
-            <p style="color: #790000; font-size: small;">As opções abaixo são combinadas com as opções de ambiente acima. Portanto, verifique a combinação adequada com base no caso recebido.</p>
-
-            <br>
+            <label class="form-label fw-bold">Detalhes da situação:</label>
+            <p style="color: #790000; font-size: small;">As opções abaixo são combinadas com as opções de ambiente acima. Portanto, verifique a combinação adequada com base no caso recebido. <br>
+            Cada opção possui uma prioridade única. Portanto, caso seja selecionada uma opção com prioridade maior, esta será considerada como principal para gerar o resumo.</p>
+            
 
             <!-- [detalhes dos checkboxes omitidos para brevidade - permanecem inalterados] -->
-        <div class="form-check">
-          <input class="form-check-input incidente-check" type="checkbox" id="cb1" value="Dano físico ou impacto ao paciente">
-          <label class="form-check-label" for="cb1">Dano reportado ao paciente.</label>
-          <p style="color: #6c6c6c; font-size: smaller;">* A opção "Was a patient or user harmed?" do caso está marcada, o cliente reporta um dano ao paciente ou ambos. Exemplo: Falta de medicação, complicações clínicas, impactos financeiros etc.</p>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input incidente-check" type="checkbox" id="cb2" value="Sistema inoperante">
-          <label class="form-check-label" for="cb2">O sistema está inoperante e não existe solução de contorno/paliativa.</label>
-          <p style="color: #6c6c6c; font-size: smaller;">* O sistema encontra-se inacessível, impossível de se utilizar.</p>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input incidente-check" type="checkbox" id="cb3" value="Serviço ou função específica inoperante">
-          <label class="form-check-label" for="cb3">Um serviço ou função específica está inoperante sem solução de contorno/paliativa.</label>
-          <p style="color: #6c6c6c; font-size: smaller;">* Situações onde não conseguimos utilizar algum serviço ou função, como indisponibilidade ou erros de acesso.</p>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input incidente-check" type="checkbox" id="cb4" value="Erros em todo o sistema ou múltiplas funções">
-          <label class="form-check-label" for="cb4">O sistema apresenta erros ou falhas em ambiente de forma geral (em todo o sistema ou em mais de uma função) sem solução contorno/paliativa.</label>
-          <p style="color: #6c6c6c; font-size: smaller;">* O sistema está disponível, porém apresenta erros como em login ou para todos os serviços ou funções, impossibilitando o uso.</p>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input incidente-check" type="checkbox" id="cb5" value="Erros em função específica isolada">
-          <label class="form-check-label" for="cb5">O sistema apresenta erros ou falhas em locais específicos e isolados do sistema? (apenas em uma função).</label>
-          <p style="color: #6c6c6c; font-size: smaller;">* Serviços, funções ou processos específicos apresentam erros, como prescrição médica ou faturamento que podem lever a impactos diretos ao paciente.</p>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input incidente-check" type="checkbox" id="cb6" value="Apenas um usuário/paciente impactado">
-          <label class="form-check-label" for="cb6">Apenas um usuário ou paciente está impossibilitado de usar o serviço.</label>
-          <p style="color: #6c6c6c; font-size: smaller;">* Necessária análise da situação pela equipe de triagem. Onde a prioridade pode variar de acordo com a situação. Por exemplo erros de parametrização incorreta por usuário ou cadastro de sinais vitais incorretos para o paciente.</p>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input incidente-check" type="checkbox" id="cb7" value="Mais de um usuário/paciente impactado">
-          <label class="form-check-label" for="cb7">Mais de um usuário ou paciente estão impossibilitados de usar o serviço.</label>
-          <p style="color: #6c6c6c; font-size: smaller;">* O sistema apresenta erros gerais para todos os usuários ou pacientes, muito parecido com erros em múltiplas funções, porém deve-se levar em conta o relato do cliente.</p>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input incidente-check" type="checkbox" id="cb8" value="Lentidão/travamento completo do sistema">
-          <label class="form-check-label" for="cb8">Sistema apresenta lentidão ou travamento no sistema ou serviços por completo.</label>
-          <p style="color: #6c6c6c; font-size: smaller;">* O sistema encontra-se com lentidão geral, dificultando imensamente o uso ou execução de alguma tarefa.</p>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input incidente-check" type="checkbox" id="cb9" value="Lentidão/travamento em função específica">
-          <label class="form-check-label" for="cb9">Sistema apresenta lentidão ou travamento em serviços ou locais específicos do sistema.</label>
-          <p style="color: #6c6c6c; font-size: smaller;">* Serviços ou funções apresentam lentidão, como checagem de horário para administração na ADEP, levando tempo demais para executar dificultando o registro no plano terapêutico.</p>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input incidente-check" type="checkbox" id="cb10" value="Problemas com novas configurações/processos">
-          <label class="form-check-label" for="cb10">Cliente alega problemas com novas configurações e processos do sistema.</label>
-          <p style="color: #6c6c6c; font-size: smaller;">* Cliente está criando novas configurações em seu ambiente, onde pode não funcionar conforme o esperado pelo mesmo, seja por falta de conhecimento ou por não possuir tratamento. Necessário avaliar internamente se a falha é de origem do cliente (falta de conhecimento) ou da parte do sistema, oque pode ser um gap de tratamento ou de fato não funcionar conforme o cliente espera.</p>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input incidente-check" type="checkbox" id="cb11" value="Dúvidas de funcionamento ou serviços gerais">
-          <label class="form-check-label" for="cb11">Cliente possui dúvidas de funcionamento ou de serviços gerais.</label>
-          <p style="color: #6c6c6c; font-size: smaller;">* Dúvidas sobre o sistema em si.</p>
-        </div>
+            <div class="form-check" style="position: relative;">
+              <input class="form-check-input incidente-check" type="checkbox" id="cb1" value="Dano físico ou impacto ao paciente">
+              <label class="form-check-label" for="cb1" style="position: relative;">
+                Dano reportado ao paciente.
+                <span class="custom-tooltip-question">?
+                  <span class="custom-tooltip-message">
+                    * A opção "Was a patient or user harmed?" do caso está marcada, o cliente reporta um dano ao paciente ou ambos. Exemplo: Falta de medicação, complicações clínicas, impactos financeiros para o paciente etc.
+                  </span>
+                </span>
+              </label>
+            </div>
+            <br>
+            <div class="form-check" style="position: relative;">
+              <input class="form-check-input incidente-check" type="checkbox" id="cb2" value="Sistema inoperante">
+              <label class="form-check-label" for="cb2" style="position: relative;">
+                O sistema está inoperante e não existe solução de contorno/paliativa.
+                <span class="custom-tooltip-question">?
+                  <span class="custom-tooltip-message">
+                    * O sistema encontra-se inacessível, impossível de se utilizar.
+                  </span>
+                </span>
+              </label>
+            </div>
+            <br>
+            <div class="form-check" style="position: relative;">
+              <input class="form-check-input incidente-check" type="checkbox" id="cb3" value="Serviço ou função específica inoperante">
+              <label class="form-check-label" for="cb3" style="position: relative;">
+                Um serviço ou função específica está inoperante sem solução de contorno/paliativa sem solução de contorno/paliativa.
+                <span class="custom-tooltip-question">?
+                  <span class="custom-tooltip-message">
+                    * Situações onde não conseguimos utilizar algum serviço ou função, como indisponibilidade ou erros de acesso.
+                  </span>
+                </span>
+              </label>
+            </div>
+            <br>
+            <div class="form-check" style="position: relative;">
+              <input class="form-check-input incidente-check" type="checkbox" id="cb4" value="Erros em todo o sistema ou múltiplas funções">
+              <label class="form-check-label" for="cb4" style="position: relative;">
+                O sistema apresenta erros ou falhas em ambiente de forma geral (em todo o sistema ou em mais de uma função) sem solução contorno/paliativa.
+                <span class="custom-tooltip-question">?
+                  <span class="custom-tooltip-message">
+                    * O sistema está disponível, porém apresenta erros como em login ou para todos os serviços ou funções, impossibilitando o uso.
+                  </span>
+                </span>
+              </label>
+            </div>
+            <br>
+            <div class="form-check" style="position: relative;">
+              <input class="form-check-input incidente-check" type="checkbox" id="cb5" value="Erros em função específica isolada">
+              <label class="form-check-label" for="cb5" style="position: relative;">
+                O sistema apresenta erros ou falhas em locais específicos e isolados do sistema? (apenas em uma função).
+                <span class="custom-tooltip-question">?
+                  <span class="custom-tooltip-message">
+                    * Serviços, funções ou processos específicos apresentam erros, como prescrição médica ou faturamento que podem levar a impactos diretos ao paciente, porém sem um dano ou impacto reportados.
+                  </span>
+                </span>
+              </label>
+            </div>
+            <br>
+            <div class="form-check" style="position: relative;">
+              <input class="form-check-input incidente-check" type="checkbox" id="cb6" value="Apenas um usuário/paciente impactado">
+              <label class="form-check-label" for="cb6" style="position: relative;">
+                Apenas um usuário ou paciente está impossibilitado de usar o serviço.
+                <span class="custom-tooltip-question">?
+                  <span class="custom-tooltip-message">
+                    * Necessária análise da situação pela equipe de triagem. Onde a prioridade pode variar de acordo com a situação. Por exemplo erros de parametrização incorreta por usuário ou cadastro de sinais vitais incorretos para o paciente.
+                  </span>
+                </span>
+              </label>
+            </div>
+            <br>
+            <div class="form-check" style="position: relative;">
+              <input class="form-check-input incidente-check" type="checkbox" id="cb7" value="Mais de um usuário/paciente impactado">
+              <label class="form-check-label" for="cb7" style="position: relative;">
+                Mais de um usuário ou paciente estão impossibilitados de usar o serviço.
+                <span class="custom-tooltip-question">?
+                  <span class="custom-tooltip-message">
+                    * O sistema apresenta erros gerais para todos os usuários ou pacientes, muito parecido com erros em múltiplas funções, porém deve-se levar em conta o relato do cliente ao realizar a triagem.
+                  </span>
+                </span>
+              </label>
+            </div>
+            <br>
+            <div class="form-check" style="position: relative;">
+              <input class="form-check-input incidente-check" type="checkbox" id="cb8" value="Lentidão/travamento completo do sistema">
+              <label class="form-check-label" for="cb8" style="position: relative;">
+                Sistema apresenta lentidão ou travamento no sistema ou serviços por completo.
+                <span class="custom-tooltip-question">?
+                  <span class="custom-tooltip-message">
+                    * O sistema encontra-se com lentidão geral, dificultando imensamente o uso ou execução de alguma tarefa.
+                  </span>
+                </span>
+              </label>
+            </div>
+            <br>
+            <div class="form-check" style="position: relative;">
+              <input class="form-check-input incidente-check" type="checkbox" id="cb9" value="Lentidão/travamento em função específica">
+              <label class="form-check-label" for="cb9" style="position: relative;">
+                Sistema apresenta lentidão ou travamento em serviços ou locais específicos do sistema.
+                <span class="custom-tooltip-question">?
+                  <span class="custom-tooltip-message">
+                    * Serviços ou funções apresentam lentidão, como checagem de horário para administração na ADEP, levando tempo demais para executar dificultando o registro no plano terapêutico.
+                  </span>
+                </span>
+              </label>
+            </div>
+            <br>
+            <div class="form-check" style="position: relative;">
+              <input class="form-check-input incidente-check" type="checkbox" id="cb10" value="Problemas com novas configurações/processos">
+              <label class="form-check-label" for="cb10" style="position: relative;">
+                Cliente alega problemas com novas configurações e processos do sistema.
+                <span class="custom-tooltip-question">?
+                  <span class="custom-tooltip-message">
+                    * Cliente está criando novas configurações em seu ambiente, onde pode não funcionar conforme o esperado pelo mesmo, seja por falta de conhecimento ou por não possuir tratamento. Necessário avaliar internamente se a falha é de origem do cliente (falta de conhecimento) ou da parte do sistema, o que pode ser um gap de tratamento ou de fato não funcionar conforme o cliente espera.
+                  </span>
+                </span>
+              </label>
+            </div>
+            <br>
+            <div class="form-check" style="position: relative;">
+              <input class="form-check-input incidente-check" type="checkbox" id="cb11" value="Dúvidas de funcionamento ou serviços gerais">
+              <label class="form-check-label" for="cb11" style="position: relative;">
+                Cliente possui dúvidas de funcionamento ou de serviços gerais.
+                <span class="custom-tooltip-question">?
+                  <span class="custom-tooltip-message">
+                    * Dúvidas sobre o sistema em si.
+                  </span>
+                </span>
+              </label>
+            </div>
       </form>
           </form>
         </div>
@@ -152,6 +276,10 @@
               🟡 Médio<br>
               🟢 Baixo<br>
               ⚪ Sem Prioridade
+            </p>
+            <br><br>
+            <p class="mt-2"><strong>📱 Serviço:</strong><br>
+              Serviço é algo que entrega valor ao cliente, facilitando a obtenção de seus resultados sem que ele precise gerenciar custos ou riscos, adaptando-se às suas necessidades. Exemplos incluem funções, processos, fluxos de trabalho e sistemas de cadastro que suportam as atividades do cliente entre outros exemplos.
             </p>
           </div>
         </div>

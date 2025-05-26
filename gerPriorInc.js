@@ -57,7 +57,7 @@ const combinacoes = {
           });
 
           const item = document.createElement('li');
-          item.textContent = maiorPrioridade ? maiorPrioridade[1] : 'Nenhuma diretriz aplicável encontrada para os itens selecionados.';
+          item.textContent = maiorPrioridade ? maiorPrioridade[1] : 'Nenhuma diretriz aplicável encontrada para os itens selecionados. Selecione uma conbinação entre ambiente e detalhamento.';
           lista.appendChild(item);
 
         } else if (ambientes.length > 1) {
