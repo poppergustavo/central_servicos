@@ -1,0 +1,74 @@
+    body {
+      background-color: #f8f9fa;
+    }
+    .active-tab {
+      background-color: #0d6efd !important;
+      color: white !important;
+    }
+    #resumoIncidente {
+      margin-top: 1rem;
+      padding: 1rem;
+      background-color: #e9ecef;
+      border-radius: 0.5rem;
+    }
+    .incident-layout {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+    .incident-form {
+      flex: 1;
+      min-width: 300px;
+    }
+    .incident-summary {
+      flex: 1;
+      min-width: 300px;
+    }
+    .form-check p {
+    display: none;
+  }
+
+  .custom-tooltip-question {
+    position: relative;
+    cursor: pointer;
+    font-weight: bold;
+    color: #007BFF;
+    user-select: none;
+  }
+
+  .custom-tooltip-message {
+    visibility: hidden;
+    width: 300px;
+    background-color: #333;
+    color: #fff;
+    font-size: smaller;
+    padding: 8px 12px;
+    border-radius: 6px;
+    text-align: left;
+
+    position: absolute;
+    bottom: 130%;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    z-index: 1000;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  }
+
+  .custom-tooltip-question:hover .custom-tooltip-message {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  .custom-tooltip-message::after {
+    content: "";
+    position: absolute;
+    top: 100%; /* Triângulo abaixo */
+    left: 50%;
+    margin-left: -6px;
+    border-width: 6px;
+    border-style: solid;
+    border-color: #333 transparent transparent transparent;
+  }
